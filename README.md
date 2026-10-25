@@ -14,7 +14,7 @@ Welcome to the official repository for **Ximos** and **XimosKid**, the industry-
 
 The Ximos ecosystem is engineered from the ground up to solve two major flaws in conventional parental monitoring software: **exorbitant monthly subscription traps** and **unsecure server-side media retention**.
 
-Ximos replaces heavy subscriptions with an ultra-transparent **Pay-As-You-Go per second billing framework** and operates under a strict **Zero-Storage RAM-transient WebRTC architecture**. Location data is relayed in-flight and never persisted server-side.
+Ximos replaces heavy subscriptions with an ultra-transparent **Pay-As-You-Go per second billing framework** and operates under a strict **Zero-Storage RAM-transient WebRTC architecture**. Location data is relayed in-flight and never persisted server-side..
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
