@@ -2,7 +2,7 @@
 
 [![Official Website](https://img.shields.io/badge/Website-ximosapp.com-blue?style=for-the-badge&logo=google-chrome)](https://ximosapp.com)
 [![Parent App](https://img.shields.io/badge/Parent_App-Ximos_v1.0.7-brightgreen?style=for-the-badge&logo=android)](https://ximosapp.com/app/ximos)
-[![Child App](https://img.shields.io/badge/Child_App-XimosKid_v1.0.6-orange?style=for-the-badge&logo=android)](https://ximosapp.com/app/ximoskid)
+[![Child App](https://img.shields.io/badge/Child_App-XimosKid_v1.0.7-orange?style=for-the-badge&logo=android)](https://ximosapp.com/app/ximoskid)
 [![Security Architecture](https://img.shields.io/badge/Privacy-Zero_Storage_E2EE-red?style=for-the-badge&logo=shield)](https://ximosapp.com/uno)
 [![Compliance](https://img.shields.io/badge/Compliance-COPPA_%26_GDPR-purple?style=for-the-badge&logo=checkmarx)](https://ximosapp.com/uno/#terms-of-use)
 
