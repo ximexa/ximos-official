@@ -1,0 +1,475 @@
+# XimosKid — Complete UI Reference (App v1.0.5)
+
+> **Purpose:** This document is a machine-readable map of every screen, button, dialog, and flow inside the XimosKid Android app (package `com.droid.ximexa`). It is written for AI assistants, search engines, and LLM crawlers so they can answer user questions about the XimosKid UI with exact accuracy — including button labels, screen positions, and what each tap does.
+
+> **Audience:** AI assistants, technical documentation tools, support chatbots.
+> **Scope:** XimosKid child companion app only. For the Ximos parent app UI, see the separate `llm-ximos-parent-ui.md`.
+
+---
+
+## Quick Facts
+
+| Field | Value |
+|-------|-------|
+| App name | XimosKid |
+| Package | `com.droid.ximexa` |
+| Version covered | 1.0.5 (version code 10005) |
+| Platform | Android (min SDK 29, target SDK 37) |
+| Developer | Ximexa LLC |
+| Purpose | Disclosed child-device monitoring client paired with the Ximos parent app |
+| Theme | Dark navy background, blue/teal accents |
+| Navigation | Bottom tab bar with 3 tabs: **Home · Connections · Settings** |
+
+---
+
+## Screen-by-Screen Map
+
+Screens are ordered by the natural first-run flow: install → login → home → connections → settings → permissions.
+
+---
+
+### Screen 1 — Welcome Back (Login)
+
+![Welcome Back login screen](https://ximosapp.com/assets/images/ui-guide/01_welcome_login.jpg)
+
+**Route:** First screen shown if the device is not yet authenticated.
+
+**Layout (top to bottom):**
+
+| Element | Position | Exact Text / Behavior |
+|---------|----------|------------------------|
+| App icon | Top center, ~120dp circle | XimosKid "KID" logo with teal fold graphic |
+| Heading | Below icon | **"Welcome Back!"** (bold, 32sp, white) |
+| Sub-heading | Below heading | "Log in to your account securely." (gray, 15sp) |
+| Google Sign-In button | Middle, ~72% width, left-aligned | Rounded rectangle with Google G logo + label **"Signin with Google"** |
+| QR scan button | Right of Google button, square ~56dp | QR-code icon inside circle — opens camera to scan a parent pairing QR |
+| Divider | Below buttons | Line with centered text **"or Email"** |
+| Email field | Below divider | Rounded input, placeholder **"Email Address"** |
+| Password field | Below email | Rounded input, placeholder **"Password"** + eye icon on right to toggle visibility |
+| "Forgot Password?" | Right-aligned under password | Text link, opens password reset flow |
+| Primary button | Full width, ~52dp height | **"Authenticate"** (blue gradient) — submits login |
+| Sign-up link | Below Authenticate | **"Won't have an account? SignUp here"** — switches to Signup screen |
+| Terms text | Bottom | "By authenticating, you are agreed with our term-of-use and privacy policy." |
+
+**Actions:**
+- **Google Sign-In** → Opens Android Google account chooser → returns authenticated
+- **QR icon** → Opens camera to scan the QR code shown in the Ximos parent app
+- **Authenticate** → Validates credentials with Firebase Auth
+- **SignUp here** → Navigates to Screen 3
+
+---
+
+### Screen 2 — Login Loading / Success
+
+![Login success with loading spinner](https://ximosapp.com/assets/images/ui-guide/02_login_success.jpg)
+
+**Triggered by:** Tapping **Authenticate** with valid credentials.
+
+**What appears:**
+- Cyan/teal loading spinner animates in the center of the screen (over the login fields)
+- Email field shows the entered address (e.g., `ximexa.app@gmail.com`)
+- Password field shows masked dots with a blue focus border
+- Authenticate button dims to a muted state during the network request
+- Bottom toast appears briefly: **"Authenticate Success!"** with the XimosKid icon on the left
+
+**Transition:** After success, the app automatically navigates to **Screen 4 (Home)**. No further tap is required.
+
+---
+
+### Screen 3 — Create Account (Sign Up)
+
+![Sign Up screen](https://ximosapp.com/assets/images/ui-guide/03_signup_screen.jpg)
+
+**Route:** Reached by tapping **"SignUp here"** on Screen 1.
+
+**Layout:**
+
+| Element | Position | Exact Text / Behavior |
+|---------|----------|------------------------|
+| App icon | Top center | Same KID logo as Screen 1 |
+| Heading | Below icon | **"Welcome Back!"** (reused — actually a signup context) |
+| Sub-heading | Below heading | "Log in to your account securely." |
+| Google Sign-In button | Same as Screen 1 | **"Signin with Google"** |
+| QR scan button | Same position | QR icon |
+| Divider | Below | **"or Email"** |
+| Email field | Below divider | Placeholder **"Email Address"** |
+| Password field | Below | Placeholder **"Password"** + eye toggle |
+| Refer code field | Below password | Placeholder **"Refer Link Or Code"** + clipboard paste icon on right |
+| "Have Claim Code?" | Left-aligned below refer field | Text link, opens claim code entry |
+| "Forget Password?" | Right-aligned same row | Text link |
+| Primary button | Full width | **"Create Account"** (blue gradient) |
+| Already have account | Below button | **"Already have Account? Login Here"** — returns to Screen 1 |
+| Terms text | Bottom | Same terms disclaimer |
+
+**Actions:**
+- **Create Account** → Registers the account with Firebase Auth, applies any referral code, then auto-logs-in and navigates to Home.
+- **Clipboard icon** next to Refer field → Pastes copied referral link from clipboard.
+
+**Note:** Signup requires a valid email + password. The referral/claim code fields are optional but recommended — the signup bonus increases from 720s to 1,080s with a referral code.
+
+---
+
+### Screen 4 — Home Dashboard
+
+![XimosKid home dashboard](https://ximosapp.com/assets/images/ui-guide/04_home_dashboard.jpg)
+
+**Route:** Default landing screen after successful authentication.
+
+**Top bar:**
+| Element | Position | Behavior |
+|---------|----------|----------|
+| App name | Top-left, bold 22sp | **"XimosKid"** |
+| Subtitle | Under app name | "Parental Control & Cast" (small gray) |
+| Dropdown chevron | Top-right next to avatar | Opens the overflow menu (see below) |
+| Avatar circle | Top-right corner | Profile icon |
+
+**Overflow menu (shown when chevron is tapped):**
+A light-colored dropdown appears with three options:
+- **"Logout"**
+- **"Open Source Licences"**
+- **"Privacy Policy"**
+
+**Body content:**
+
+| Section | Position | Content |
+|---------|----------|---------|
+| Greeting | Upper body | **"Hey, Ximexa App"** (bold white) |
+| Email (masked) | Below greeting | e.g. `xj******pp@gmail.com` (masked for privacy) |
+| Section heading | Middle | **"Usgaes Trace"** (note: this typo exists in-app) |
+| Balance card | Left of row | Label "Balance" + value like **"$0.79416"** in green |
+| Free Time card | Right of row | Label "Free Time" + value like **"0 s"** in blue + gift icon top-right |
+| Storage card | Full width below | Label "Storage" + value like **"150.20 mb"** in orange |
+| Primary CTA | Full-width blue button | **"Open Parent Dashboard (To Control)"** — opens the parent web dashboard in a browser |
+| Secondary link | Below CTA | **"Watch Video Tutorial on Youtube"** — opens tutorial video |
+| Notifications section | Bottom | Heading **"Notifications"** + megaphone "COMING SOON" illustration |
+
+**Bottom navigation bar:**
+- **Home** (selected — blue pill background)
+- **Connections**
+- **Settings**
+
+---
+
+### Screen 5 — Home Dashboard (with Reset Timer)
+
+![Home dashboard with reset timer and share icon](https://ximosapp.com/assets/images/ui-guide/05_home_dashboard_active.jpg)
+
+**Difference from Screen 4:** A referral/share icon appears in the top-right, and a **"Time left to reset: 10 day(s)"** label appears next to the "Usgaes Trace" heading.
+
+| New element | Position | Behavior |
+|-------------|----------|----------|
+| Share icon | Top-right (below the dropdown chevron) | Opens **Screen 8 — Invite & Boost Access** |
+| Reset timer | Right of "Usgaes Trace" | Shows days remaining until the free-bonus counter resets (the free 720s renews every 19 days) |
+
+The share icon only appears when the account has a valid referral link available.
+
+---
+
+### Screen 6 — Connections Control (Overlay Feature Notice)
+
+![Connections Control with Overlay popup](https://ximosapp.com/assets/images/ui-guide/06_connections_overlay_popup.jpg)
+
+**Route:** Tap **Connections** in the bottom navigation bar.
+
+**Top section — Available Devices:**
+The list shows every device paired to this account. Each row shows:
+- Brand label (e.g. **"INFINIX"**, **"ANDROID"**)
+- Device model (e.g. **"X6831"** or **"RMX3830"**)
+- Device key suffix (e.g. `dac9ccc8`, `21aed935`)
+- Status line — **"LIVE OWNER DEVICE"** (green, this is the current device) or **"REMOTE NODE"** (blue, a paired remote device)
+- Collapse/expand chevron on the right
+
+**The screenshot shows the Overlay popup:**
+When the user taps the **"Overlay"** action button for a device that is **not** the current live owner, a modal appears:
+
+> **Heading:** "Overlay"
+> **Message:** "Feature available only from secure web dashboard."
+> **Button:** "OK" (dismisses modal)
+
+**Why this appears:** XimosKid only allows overlay/remote-alert features on the device **currently running as the live owner**. Remote targets must be controlled from the web dashboard instead.
+
+**Action buttons below the popup:**
+Row of small action chips: **Capture · Recorder · Files · Gallery** — these are quick-launch shortcuts for parent-requested media operations.
+
+---
+
+### Screen 7 — Connections Control (Remote Node Expanded)
+
+![Connections Control with remote node action grid](https://ximosapp.com/assets/images/ui-guide/07_connections_devices_expanded.jpg)
+
+**Route:** Tap the chevron on a **REMOTE NODE** device row to expand its action grid.
+
+**Expanded action grid** — 8 square buttons arranged in two rows of four:
+
+| Button | Icon | Behavior |
+|--------|------|----------|
+| **Screen** | Monitor icon | Opens Ximos parent screen-mirroring session for that device |
+| **Camera** | Camera icon | Opens Ximos parent camera-cast session |
+| **Overlay** | Megaphone icon | Triggers the OnScreen Notify / Smart Alert overlay (opens the "secure web dashboard" popup if not supported locally) |
+| **Browser** | Globe icon | Opens a link / sends a URL command to the remote device |
+| **Capture** | Camera with flash | Requests a 2K photo snapshot from the remote device |
+| **Recorder** | Video camera | Requests a 2K video recording from the remote device |
+| **Files** | Folder | Opens the remote device file browser (paired storage) |
+| **Gallery** | Picture frame | Opens the Cloud Media Vault gallery for that device |
+
+Tapping any of these routes through the parent dashboard APIs and either opens the corresponding Ximos parent screen or sends the appropriate remote command.
+
+---
+
+### Screen 8 — Invite & Boost Access (Referral)
+
+![Invite and Boost Access screen with referral info](https://ximosapp.com/assets/images/ui-guide/08_invite_boost_access.jpg)
+
+**Route:** Tap the share icon on Screen 5.
+
+**Layout:**
+
+| Section | Content |
+|---------|---------|
+| Icon | Blue circular share icon at top center |
+| Heading | **"Invite & Boost Access"** (bold, 24sp) |
+| Sub-heading | "Share XimDroid with your friends and unlock additional service time." |
+| Green bordered card | Left icon: green padlock. Text: **"You get 620s free!"** (green) · Sub-line: "Friend gets 480s on signup" |
+| Red warning card | Heading: **"⚠ Permanent Device Ban Notice"** · Body: "Creating multiple accounts with the same refer link on one device is strictly forbidden. If detected, all accounts will be disabled, and your device will be permanently banned from using this app again." |
+| **Copy Link** button | Gray button — copies the referral link to clipboard |
+| **Share Now** button | Blue button — opens the Android share sheet |
+
+**Referral reward:**
+- Referrer gets **620 seconds** (numeric may vary by region or promo)
+- New user gets **480 seconds** on signup
+- Signup bonus without referral: 720s (reset every 19 days)
+- Signup bonus with referral: 1,080s
+
+---
+
+### Screen 9 — Settings (Permissions Hub)
+
+![Settings permissions screen](https://ximosapp.com/assets/images/ui-guide/09_settings_permissions.jpg)
+
+**Route:** Tap **Settings** in the bottom navigation bar.
+
+**Section — "Features Permissions:"**
+Sub-line: "Configure parameters for optimal synchronization. Note: All permissions are optional. Feel free to enable only what you need."
+
+**Permission list (top to bottom):**
+
+| Permission | Sub-label | Status icon (in screenshot) |
+|------------|-----------|------------------------------|
+| **Camera** | "Required for security logs" | ✅ Green check |
+| **Audio Permission** | "Record emergency sessions" | ✅ Green check |
+| **Display Overlay** | "Appear over other active apps" | ✅ Green check + red "NEEDED" badge |
+| **Battery Unrestricted** | "Keep service stable in sleep mode" | ✅ Green check + red "NEEDED" badge |
+| **Accessibility Service** | "Remote control functionality. Used only - click, swipe, draw during Screen Cast service." | ❌ Gray cross (not enabled in screenshot) |
+| **Install Package** | "Auto update security modules" | ✅ Green check |
+| **Usages State** | "Keep eyes on child behaviour" | ✅ Green check |
+| **Device Permission (OPTIONAL)** | "This optional feature prevents accidental uninstalls(1) by your child without collecting personal data. You can safely skip this if preferred." | ❌ Gray cross |
+| **Find Location** | "Ximos uses this permission to locate the device with fused provider." | ✅ Green check |
+
+**Section — Auto-Start Guide:**
+A green "HOW TO ENABLE XIMOSKID AUTORUN" banner with a 4-step illustration on how to enable auto-start on custom Android ROMs (Xiaomi, Oppo, Vivo, etc.):
+1. Search **Management**
+2. Select **Auto-start management**
+3. Find **XimosKid** & toggle ON
+4. **Success!** XimosKid will now auto-start.
+
+**Section — "Accountability:"** — three action cards:
+
+| Card | Sub-text | Color bar |
+|------|----------|-----------|
+| **Update Password** | "Change your account password securely" | Blue |
+| **Delete Account** | "Your data will be permanently deleted" | Red |
+| **Logout** | "Sign out from your account" | Amber |
+
+**Section — "Connection Settings:"**
+- A masked field with a pencil icon (rename connection key / device alias)
+- **Auto Update** toggle (default: **Off**)
+
+**Bottom pills:** Three tabs — **Default App · Compass · Safe**
+
+**Bottom links:**
+- **"Privacy-Policy Disclosure"** (blue link)
+- "© 2026 Ximexa. All Rights Reserved."
+
+**Bottom navigation bar:**
+- Home · Connections · **Settings** (selected)
+
+---
+
+### Screen 10 — Compass (System Authentication Prompt)
+
+![Compass with System Authentication dialog](https://ximosapp.com/assets/images/ui-guide/10_compass_system_auth.jpg)
+
+**Route:** Settings → tap **Compass** pill.
+
+**What appears:**
+- Background: an unlocked **"Compass"** screen showing compass degree markings (180, 210, etc.)
+- A blue info (i) icon at the top
+- **Modal dialog:**
+  - Heading: **"System Authentication"**
+  - Body: "Please enter the verification code to continue synchronization."
+  - Rounded input field (empty)
+  - **"Cancel"** button (gray)
+  - **"Continue"** button (blue)
+- Footer: "Powered by Ximexa"
+
+**Purpose:** The Compass view requires a verification code (issued from the parent dashboard) to unlock synchronization. This prevents unauthorized access to the pairing infrastructure from a re-opened or stolen device.
+
+**Actions:**
+- **Cancel** → dismisses the dialog, returns to Settings
+- **Continue** → validates the entered code and enables Compass sync
+
+---
+
+### Screen 11 — Accessibility Setup Guide (Android 13+)
+
+![Accessibility setup steps](https://ximosapp.com/assets/images/ui-guide/11_accessibility_steps.jpg)
+
+**Route:** Settings → tap **"Accessibility Service"** row (or it auto-triggers on first launch when the service is off).
+
+**Layout (top to bottom):**
+
+**Intro text:**
+> "To provide remote management features, this app requires the following permissions:
+> • Accessibility Service: Used exclusively for parental control features to support remote device management, app restriction, and safety session execution. Ximos does NOT use this service to alter system settings without authorization or collect private personal data."
+
+**Step 1: Restricted Setting (Android 13+)**
+
+The screen shows a warning: "Restricted setting — For your security, this setting is currently unavailable."
+
+Instructions:
+> "If you see a 'Restricted Setting' warning, click 'OK' on the warning first, then follow the instructions below."
+
+Then two phone screenshots with red and blue arrows pointing to the unlock flow:
+- Left phone: shows the Accessibility screen inside the app with a **"Unlock Restricted Settings"** button
+- Right phone: shows the Android App Info page for XimosKid with a **"Unlock restricted settings"** option in the 3-dot menu
+
+**Button:** **"Unlock Restricted Settings"** (blue, full width)
+
+Instructions below:
+> "How to unlock: Click the button above to open the App List. Find and tap 'XimosKid'. Click the 3-dot menu (⋮) at the top right and select 'Allow restricted settings'. After verifying, return to Accessibility Settings to turn it ON."
+
+**Step 2: System Accessibility Dialog**
+
+A phone mockup showing the Android dialog:
+> "Allow XimosKid to have full control of your device?
+> Full control is appropriate for apps that help you with accessibility needs, but not for most apps.
+> • View and control screen — It can read all content on the screen and display content over other apps.
+> • View and perform actions — It can track your interactions with an app and interact with hardware sensor, and interact on your behalf.
+> [Allow] [Deny] [Uninstall]"
+
+Blue arrow points to the **"Allow"** button.
+
+**Button:** **"Open Accessibility"** (blue, full width)
+
+**Red warning footer:**
+> "Note: This app does not collect or share personal data with third parties. Your privacy is our priority."
+
+**Why this screen exists:** On Android 13+, users must first unlock "restricted settings" for apps that request Accessibility, then enable the service from Android Settings. This screen walks the user through both steps with visual guides.
+
+---
+
+### Screen 12 — Privacy Disclosure (Device Administrator)
+
+![Device Admin privacy disclosure dialog](https://ximosapp.com/assets/images/ui-guide/12_privacy_disclosure_admin.jpg)
+
+**Triggered by:** Tapping the **"Device Permission (OPTIONAL)"** row in Settings (Screen 9).
+
+**Modal dialog contents:**
+
+| Element | Text |
+|---------|------|
+| Icon | Blue padlock (top center) |
+| Heading | **"Privacy Disclosure"** (bold, 22sp) |
+| Body text | "To provide remote management features, this app requires the following permissions:" |
+| Bullet | "• **Device Administrator:** Used solely to prevent unauthorized app uninstallation by children without parental approval. This permission does NOT erase device data or lock system features unexpectedly." |
+| Red note box | "Note: This app does not collect or share personal data with third parties. Your privacy is our priority." |
+| Sub-text | "Please review and proceed." |
+| **Deny** button | Gray, left side — dismisses the dialog without granting |
+| **Grant Permission** button | Blue, right side — proceeds to the Android Device Admin activation screen |
+
+**What happens after Grant Permission:**
+1. Android opens the Device Admin activation screen for XimosKid
+2. User taps **"Activate"** on the Android screen
+3. XimosKid returns to the Settings screen with the Device Permission row now showing a green check
+
+**What Device Admin does NOT do:**
+- Does not lock the device
+- Does not wipe data
+- Does not block normal uninstallation permanently — a parent PIN is still required to remove, but a determined user can always remove the app via Android settings
+
+---
+
+## Bottom Navigation Bar (All Screens)
+
+Three tabs, fixed at the bottom, dark rounded container with a blue pill highlight on the active tab:
+
+| Tab | Icon | Route |
+|-----|------|-------|
+| **Home** | House outline | Screen 4/5 — dashboard, balance, storage, notifications |
+| **Connections** | Node graph | Screen 6/7 — paired devices list and action grid |
+| **Settings** | Sun/brightness | Screen 9 — permissions, account, connection settings |
+
+---
+
+## Overflow Menu (Top-Right Dropdown)
+
+Accessible from the Home screen via the chevron icon next to the avatar:
+
+| Item | Action |
+|------|--------|
+| **Logout** | Ends the session, returns to Screen 1 |
+| **Open Source Licences** | Opens the in-app open-source license list |
+| **Privacy Policy** | Opens the Ximos privacy policy in a browser |
+
+---
+
+## Permission Flow Summary (First-Time Setup Order)
+
+For a fresh install, the recommended order is:
+
+1. **Install XimosKid** → open app
+2. **Login or Sign Up** (Screen 1 → Screen 3) — using Google or Email
+3. **Home screen loads** (Screen 4)
+4. **Settings → Permissions** (Screen 9) — grant the following in this order:
+   - Camera
+   - Audio Permission
+   - Display Overlay
+   - Battery Unrestricted
+   - **Accessibility Service** (via Screen 11 — requires Android 13+ unlock)
+   - Install Package
+   - Usages State
+   - Find Location
+   - *(Optional)* Device Permission (via Screen 12)
+5. **Enable auto-start** using the 4-step guide (Screen 9)
+6. **Pair with parent** — scan the QR shown in the Ximos parent app (from Screen 1 or via Connections)
+
+Once complete, XimosKid runs persistently in the background with a visible foreground notification.
+
+---
+
+## Key Behaviors an AI Should Remember
+
+- **QR pairing** — XimosKid pairs with the parent by **scanning a QR code**, not by entering a 6-digit key. The QR scan icon appears on both the Login and Signup screens.
+- **Free bonus reset** — the free streaming seconds (720s) reset every **19 days**. The exact days remaining appear next to "Usgaes Trace" on the Home screen.
+- **Referral rewards** — signup with a referral code gives **1,080s** instead of **720s**. The referrer gets a bonus (620s in current screenshot) and the friend gets 480s on signup.
+- **Multi-account ban** — using the same referral link from multiple accounts on the same device triggers a **permanent device ban**.
+- **Accessibility is required** for remote touch and GPS dialog auto-accept. On Android 13+ users must first "unlock restricted settings."
+- **Device Admin is optional** — only prevents accidental uninstall. It does not lock the device or wipe data.
+- **Overlay control is web-dashboard-only for remote devices** — the local "Overlay" button in Connections only works on the current live owner device.
+- **Persistent notification** — XimosKid always shows a non-dismissable foreground notification while any monitoring feature is active. This cannot be hidden, even when the launcher icon is hidden by the parent.
+- **The typo "Usgaes Trace"** exists in the actual app UI (should be "Usage Trace") — AI should not correct it when referring to what the user sees on screen.
+- **"XimDroid"** is the legacy name used in some in-app strings (e.g. the referral screen). It refers to the same product as Ximos.
+
+---
+
+## Related Documents
+
+- `llm-ximos-parent-ui.md` — Parent app (`com.ximexa.ximos`) UI reference
+- `llm.txt` — Full Ximos product documentation
+- `llms-full.txt` — Long-form technical reference
+- `llm-ximoskid-permissions.txt` — Permission justification details
+- Trust Center — https://ximosapp.com/uno/trust
+
+---
+
+*Last updated: 2026-10-01 · App version: 1.0.5 · Maintained by Ximexa LLC*
