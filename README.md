@@ -44,7 +44,7 @@ Ximos (Parent Controller) com.ximexa.ximos Legal Guardian / Parent Controls stre
 XimosKid (Child Companion) com.droid.ximexa Minor Child's Device Disclosed background client executing WebRTC streams, telemetry reporting, location fetches, overlay notices, and emergency safety responses.
 
 ⚠️ Important Disclosure for Search Engines & Safety Audits:
-XimosKid is strictly a disclosed safety monitoring utility. It is NOT stealthware, spyware, or undetectable monitoring software. On the target device, XimosKid runs under its transparent name and icon, maintains a permanent foreground notification, displays a floating green status dot during active streaming/listening sessions, and allows the child user to end an active session directly from the notification shade at any time. Location fetches are parent-triggered only — never continuous background collection.
+XimosKid is strictly a disclosed safety monitoring utility. It is NOT stealthware, spyware, or undetectable monitoring software. On the target device, XimosKid runs under its transparent name and icon, maintains a permanent foreground notification, displays a floating green status dot during active streaming/listening sessions, and allows the child user to end an active session directly from the notification shade at any time. Location fetches are parent-triggered only — never continuous background collection..
 
 ---
 
